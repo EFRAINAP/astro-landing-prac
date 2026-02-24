@@ -1,0 +1,46 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Variables CSS personalizadas */
+:root {
+  --color-primary: #3b82f6;
+  --color-secondary: #64748b;
+  --color-success: #10b981;
+  --color-warning: #f59e0b;
+  --color-error: #ef4444;
+}
+
+/* Componentes base reutilizables */
+@layer components {
+  .btn-base {
+    @apply px-4 py-2 rounded-lg font-semibold transition-all duration-300 cursor-pointer;
+  }
+  
+  .btn-primary {
+    @apply btn-base bg-blue-500 hover:bg-blue-600 text-white;
+  }
+  
+  .btn-secondary {
+    @apply btn-base bg-gray-500 hover:bg-gray-600 text-white;
+  }
+  
+  .card-base {
+    @apply bg-white rounded-lg shadow-md p-6 border border-gray-200;
+  }
+  
+  .input-base {
+    @apply w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 transition-colors;
+  }
+}
+
+/* Utilidades personalizadas */
+@layer utilities {
+  .gradient-text {
+    @apply bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent;
+  }
+  
+  .animate-fade-in {
+    @apply animate-in fade-in duration-500;
+  }
+}

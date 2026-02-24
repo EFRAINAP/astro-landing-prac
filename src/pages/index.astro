@@ -1,17 +1,214 @@
 ---
-
+import Layout from "../layouts/Layout.astro";
+import Header from "../components/layout/Header.astro";
+import Footer from "../components/layout/Footer.astro";
 ---
 
-<html lang="en">
-	<head>
-		<meta charset="utf-8" />
-		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-		<link rel="icon" href="/favicon.ico" />
-		<meta name="viewport" content="width=device-width" />
-		<meta name="generator" content={Astro.generator} />
-		<title>Astro</title>
-	</head>
-	<body>
-		<h1>Astro</h1>
-	</body>
-</html>
+<Layout title="Mi Landing - Soluciones Digitales Modernas" description="Creamos sitios web y aplicaciones que impulsan tu negocio con tecnologías modernas">
+	<Header currentPage="" />
+	
+	<!-- Hero Section -->
+	<section class="bg-gradient-to-br from-blue-50 via-white to-purple-50 pt-20 pb-32">
+		<div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+			<div class="text-center">
+				<h1 class="text-4xl md:text-6xl font-bold text-gray-900 mb-6">
+					Transformamos Ideas en 
+					<span class="bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">
+						Soluciones Digitales
+					</span>
+				</h1>
+				<p class="text-xl text-gray-600 mb-8 max-w-3xl mx-auto">
+					Desarrollamos sitios web, aplicaciones y experiencias digitales que impulsan tu negocio hacia el futuro con tecnologías como Astro, React, Svelte y más.
+				</p>
+				<div class="flex flex-col sm:flex-row gap-4 justify-center">
+					<a href="/cotiza" class="bg-blue-600 hover:bg-blue-700 text-white px-8 py-4 rounded-lg font-semibold text-lg transition-all duration-300 hover:scale-105 shadow-lg">
+						Cotizar Proyecto 🚀
+					</a>
+					<a href="/proyectos" class="border-2 border-blue-600 text-blue-600 hover:bg-blue-600 hover:text-white px-8 py-4 rounded-lg font-semibold text-lg transition-all duration-300">
+						Ver Proyectos 📁
+					</a>
+				</div>
+			</div>
+			
+			<!-- Hero Image/Animation -->
+			<div class="mt-16 relative">
+				<div class="bg-white rounded-2xl shadow-2xl p-8 max-w-4xl mx-auto">
+					<div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+						<div class="bg-gradient-to-br from-blue-100 to-blue-200 rounded-lg p-6 text-center">
+							<div class="text-4xl mb-3">⚡</div>
+							<h3 class="font-semibold text-gray-800">Rápido</h3>
+							<p class="text-sm text-gray-600">Sitios optimizados para velocidad</p>
+						</div>
+						<div class="bg-gradient-to-br from-purple-100 to-purple-200 rounded-lg p-6 text-center">
+							<div class="text-4xl mb-3">📱</div>
+							<h3 class="font-semibold text-gray-800">Responsive</h3>
+							<p class="text-sm text-gray-600">Perfecto en cualquier dispositivo</p>
+						</div>
+						<div class="bg-gradient-to-br from-green-100 to-green-200 rounded-lg p-6 text-center">
+							<div class="text-4xl mb-3">🎯</div>
+							<h3 class="font-semibold text-gray-800">Moderno</h3>
+							<p class="text-sm text-gray-600">Tecnologías de vanguardia</p>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</section>
+
+	<!-- Services Preview -->
+	<section class="py-20 bg-white">
+		<div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+			<div class="text-center mb-16">
+				<h2 class="text-3xl md:text-4xl font-bold text-gray-900 mb-4">
+					Nuestros Servicios
+				</h2>
+				<p class="text-xl text-gray-600 max-w-2xl mx-auto">
+					Ofrecemos soluciones completas para llevar tu negocio al siguiente nivel digital
+				</p>
+			</div>
+			
+			<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+				<!-- Web Development -->
+				<div class="bg-white rounded-lg shadow-lg p-8 hover:shadow-xl transition-shadow duration-300 border border-gray-100">
+					<div class="text-4xl text-blue-600 mb-4">💻</div>
+					<h3 class="text-xl font-semibold text-gray-900 mb-3">Desarrollo Web</h3>
+					<p class="text-gray-600 mb-4">Sitios web modernos, rápidos y optimizados para SEO con las últimas tecnologías.</p>
+					<ul class="text-sm text-gray-500 space-y-1">
+						<li>• Astro, React, Svelte</li>
+						<li>• Responsive Design</li>
+						<li>• SEO Optimizado</li>
+					</ul>
+				</div>
+
+				<!-- E-commerce -->
+				<div class="bg-white rounded-lg shadow-lg p-8 hover:shadow-xl transition-shadow duration-300 border border-gray-100">
+					<div class="text-4xl text-green-600 mb-4">🛒</div>
+					<h3 class="text-xl font-semibold text-gray-900 mb-3">E-commerce</h3>
+					<p class="text-gray-600 mb-4">Tiendas online completas con sistemas de pago y gestión de inventario.</p>
+					<ul class="text-sm text-gray-500 space-y-1">
+						<li>• Shopify, WooCommerce</li>
+						<li>• Pagos en línea</li>
+						<li>• Panel de administrador</li>
+					</ul>
+				</div>
+
+				<!-- Mobile Apps -->
+				<div class="bg-white rounded-lg shadow-lg p-8 hover:shadow-xl transition-shadow duration-300 border border-gray-100">
+					<div class="text-4xl text-purple-600 mb-4">📱</div>
+					<h3 class="text-xl font-semibold text-gray-900 mb-3">Apps Móviles</h3>
+					<p class="text-gray-600 mb-4">Aplicaciones nativas y PWAs para iOS y Android con excelente UX.</p>
+					<ul class="text-sm text-gray-500 space-y-1">
+						<li>• React Native, Flutter</li>
+						<li>• PWAs</li>
+						<li>• App Store deployment</li>
+					</ul>
+				</div>
+			</div>
+			
+			<div class="text-center mt-12">
+				<a href="/servicios" class="bg-blue-600 hover:bg-blue-700 text-white px-6 py-3 rounded-lg font-semibold transition-colors">
+					Ver Todos los Servicios →
+				</a>
+			</div>
+		</div>
+	</section>
+
+	<!-- Why Choose Us -->
+	<section class="py-20 bg-gray-50">
+		<div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+			<div class="text-center mb-16">
+				<h2 class="text-3xl md:text-4xl font-bold text-gray-900 mb-4">
+					¿Por Qué Elegirnos?
+				</h2>
+				<p class="text-xl text-gray-600">
+					Combinamos experiencia, tecnología y pasión por crear experiencias digitales excepcionales
+				</p>
+			</div>
+
+			<div class="grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
+				<div class="space-y-8">
+					<div class="flex items-start space-x-4">
+						<div class="bg-blue-100 p-3 rounded-lg flex-shrink-0">
+							<svg class="w-6 h-6 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+								<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"></path>
+							</svg>
+						</div>
+						<div>
+							<h3 class="text-xl font-semibold text-gray-900 mb-2">Tecnología de Vanguardia</h3>
+							<p class="text-gray-600">Utilizamos las últimas tecnologías para garantizar sitios rápidos, seguros y escalables.</p>
+						</div>
+					</div>
+
+					<div class="flex items-start space-x-4">
+						<div class="bg-green-100 p-3 rounded-lg flex-shrink-0">
+							<svg class="w-6 h-6 text-green-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+								<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+							</svg>
+						</div>
+						<div>
+							<h3 class="text-xl font-semibold text-gray-900 mb-2">Entrega Rápida</h3>
+							<p class="text-gray-600">Proyectos entregados en tiempo record sin comprometer la calidad.</p>
+						</div>
+					</div>
+
+					<div class="flex items-start space-x-4">
+						<div class="bg-purple-100 p-3 rounded-lg flex-shrink-0">
+							<svg class="w-6 h-6 text-purple-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+								<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M18.364 5.636l-3.536 3.536m0 5.656l3.536 3.536M9.172 9.172L5.636 5.636m3.536 9.192L5.636 18.364M12 12h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+							</svg>
+						</div>
+						<div>
+							<h3 class="text-xl font-semibold text-gray-900 mb-2">Soporte Continuo</h3>
+							<p class="text-gray-600">Acompañamiento post-lanzamiento y mantenimiento de tu proyecto.</p>
+						</div>
+					</div>
+				</div>
+
+				<div class="relative">
+					<div class="bg-white rounded-2xl shadow-xl p-8">
+						<div class="grid grid-cols-2 gap-4">
+							<div class="text-center p-4 bg-blue-50 rounded-lg">
+								<div class="text-3xl font-bold text-blue-600">50+</div>
+								<div class="text-sm text-gray-600">Proyectos</div>
+							</div>
+							<div class="text-center p-4 bg-green-50 rounded-lg">
+								<div class="text-3xl font-bold text-green-600">98%</div>
+								<div class="text-sm text-gray-600">Satisfacción</div>
+							</div>
+							<div class="text-center p-4 bg-purple-50 rounded-lg">
+								<div class="text-3xl font-bold text-purple-600">24/7</div>
+								<div class="text-sm text-gray-600">Soporte</div>
+							</div>
+							<div class="text-center p-4 bg-orange-50 rounded-lg">
+								<div class="text-3xl font-bold text-orange-600">5★</div>
+								<div class="text-sm text-gray-600">Calificación</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</section>
+
+	<!-- CTA Section -->
+	<section class="py-20 bg-gradient-to-r from-blue-600 to-purple-600">
+		<div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+			<h2 class="text-3xl md:text-4xl font-bold text-white mb-4">
+				¿Listo Para Comenzar Tu Proyecto?
+			</h2>
+			<p class="text-xl text-blue-100 mb-8 max-w-2xl mx-auto">
+				Contáctanos hoy y descubre cómo podemos llevar tu idea al siguiente nivel
+			</p>
+			<div class="flex flex-col sm:flex-row gap-4 justify-center">
+				<a href="/cotiza" class="bg-white text-blue-600 hover:bg-blue-50 px-8 py-4 rounded-lg font-semibold text-lg transition-all duration-300 hover:scale-105">
+					Solicitar Cotización 💰
+				</a>
+				<a href="/nosotros" class="border-2 border-white text-white hover:bg-white hover:text-blue-600 px-8 py-4 rounded-lg font-semibold text-lg transition-all duration-300">
+					Conoce Nuestro Equipo 👥
+				</a>
+			</div>
+		</div>
+	</section>
+
+	<Footer />
+</Layout>

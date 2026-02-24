@@ -1,0 +1,124 @@
+---
+interface Props {
+  currentPage?: string;
+}
+
+const { currentPage = "" } = Astro.props;
+
+const navItems = [
+  { name: "Home", href: "/", icon: "🏠" },
+  { name: "Nosotros", href: "/nosotros", icon: "👥" }, 
+  { name: "Servicios", href: "/servicios", icon: "⚙️" },
+  { name: "Proyectos", href: "/proyectos", icon: "📁" },
+  { name: "Cotiza", href: "/cotiza", icon: "💰" }
+];
+---
+
+<script>
+  // Función para el menú móvil
+  function toggleMobileMenu() {
+    const menu = document.getElementById('mobile-menu');
+    const button = document.getElementById('mobile-menu-button');
+    if (menu && button) {
+      const isOpen = menu.classList.contains('block');
+      menu.classList.toggle('hidden', isOpen);
+      menu.classList.toggle('block', !isOpen);
+      button.setAttribute('aria-expanded', String(!isOpen));
+    }
+    
+  }
+
+  // Agregar el event listener cuando el DOM esté listo
+  document.addEventListener('DOMContentLoaded', () => {
+    const button = document.getElementById('mobile-menu-button');
+    if (button) {
+      button.addEventListener('click', toggleMobileMenu);
+    }
+  });
+</script>
+
+<header class="bg-white shadow-lg border-b sticky top-0 z-50">
+  <nav class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <div class="flex justify-between items-center h-16">
+      <!-- Logo -->
+      <div class="flex-shrink-0">
+        <a href="/" class="flex items-center space-x-2">
+          <div class="w-8 h-8 bg-gradient-to-br from-blue-500 to-purple-600 rounded-lg flex items-center justify-center">
+            <span class="text-white font-bold text-lg">M</span>
+          </div>
+          <span class="font-bold text-xl text-gray-900">Mi Landing</span>
+        </a>
+      </div>
+
+      <!-- Desktop Navigation -->
+      <div class="hidden md:block">
+        <div class="ml-10 flex items-baseline space-x-4">
+          {navItems.map(item => (
+            <a
+              href={item.href}
+              class={`px-3 py-2 rounded-md text-sm font-medium transition-colors duration-200 ${
+                currentPage === item.href.slice(1) || (item.href === "/" && currentPage === "")
+                  ? "bg-blue-100 text-blue-700 border-b-2 border-blue-500"
+                  : "text-gray-700 hover:text-blue-600 hover:bg-blue-50"
+              }`}
+            >
+              <span class="mr-1">{item.icon}</span>
+              {item.name}
+            </a>
+          ))}
+        </div>
+      </div>
+
+      <!-- CTA Button -->
+      <div class="hidden md:block">
+        <a
+          href="/cotiza"
+          class="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-lg font-medium transition-colors duration-200"
+        >
+          Cotizar Proyecto
+        </a>
+      </div>
+
+      <!-- Mobile menu button -->
+      <div class="md:hidden">
+        <button
+          type="button"
+          id="mobile-menu-button"
+          class="bg-gray-900 inline-flex items-center justify-center p-2 rounded-md text-gray-400 hover:text-white hover:bg-gray-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-white"
+          aria-controls="mobile-menu"
+          aria-expanded="false"
+        >
+          <span class="sr-only">Abrir menú principal</span>
+          <svg class="block h-6 w-6" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
+          </svg>
+        </button>
+      </div>
+    </div>
+
+    <!-- Mobile menu -->
+    <div class="hidden md:hidden" id="mobile-menu">
+      <div class="px-2 pt-2 pb-3 space-y-1 sm:px-3 bg-gray-50 rounded-lg">
+        {navItems.map(item => (
+          <a
+            href={item.href}
+            class={`block px-3 py-2 rounded-md text-base font-medium ${
+              currentPage === item.href.slice(1) || (item.href === "/" && currentPage === "")
+                ? "bg-blue-100 text-blue-700"
+                : "text-gray-700 hover:text-blue-600 hover:bg-blue-50"
+            }`}
+          >
+            <span class="mr-2">{item.icon}</span>
+            {item.name}
+          </a>
+        ))}
+        <a
+          href="/cotiza"
+          class="block w-full text-center bg-blue-600 hover:bg-blue-700 text-white px-3 py-2 rounded-md text-base font-medium mt-4"
+        >
+          💰 Cotizar Proyecto
+        </a>
+      </div>
+    </div>
+  </nav>
+</header>
