@@ -3,42 +3,30 @@
 ## 🎯 **Organización Actual**
 
 ```
-spiffy-solstice/
-├── 📁 public/                     # ✨ Archivos estáticos
-│   ├── favicon.ico                 # Favicon principal
-│   └── favicon.svg                 # Favicon en SVG
+src/
+├── components/
+│   ├── ui/                    # 🔧 Componentes básicos reutilizables
+│   │   ├── Button.svelte         # ✅ Ya lo tienes aquí
+│   │   └── Card.svelte           # ❌ Mover desde raíz
+│   │
+│   ├── layout/                # 🏗️ Header, Footer (ya tienes)
+│   │   ├── Header.astro
+│   │   └── Footer.astro
+│   │
+│   ├── sections/              # 📄 Secciones de páginas
+│   │   ├── Hero.astro            # ❌ Crear (hero de index.astro)
+│   │   ├── Services.astro        # ❌ Crear (services de index.astro)
+│   │   └── Contact.svelte        # ❌ Crear (formulario cotizar)
+│   │
+│   └── demo/                  # 🧪 Componentes de prueba/demo
+│       ├── Counter.svelte        # ❌ Mover desde raíz
+│       ├── TodoList.svelte       # ❌ Mover desde raíz
+│       └── ButtonDemo.svelte     # ❌ Mover desde raíz
 │
-├── 📁 src/                         # 🚀 Código fuente principal
-│   ├── 📁 components/              # 🧩 Componentes reutilizables
-│   │   ├── 📁 ui/                  # Componentes base de UI
-│   │   │   └── Button.svelte       # Botón reutilizable con variantes
-│   │   ├── 📁 sections/            # Secciones grandes de página
-│   │   ├── Card.svelte             # Componente de tarjeta
-│   │   ├── Counter.svelte          # Contador interactivo
-│   │   ├── LearningForm.svelte     # Formulario complejo
-│   │   └── TodoList.svelte         # Lista de tareas
-│   │
-│   ├── 📁 layouts/                 # 🏗️ Layouts de página
-│   │   └── Layout.astro            # Layout base para todas las páginas
-│   │
-│   ├── 📁 pages/                   # 📄 Páginas del sitio (routing de Astro)
-│   │   └── index.astro             # Página principal
-│   │
-│   ├── 📁 styles/                  # 🎨 Estilos globales
-│   │   └── globals.css             # Estilos CSS globales + Tailwind
-│   │
-│   ├── 📁 lib/                     # 🛠️ Utilidades y funciones helper
-│   │   ├── utils.ts                # Funciones utilidad generales
-│   │   └── theme.ts                # Configuración de tema y estilos
-│   │
-│   └── 📁 types/                   # 📝 Tipos TypeScript
-│       └── index.ts                # Definiciones de tipos compartidas
-│
-├── astro.config.mjs                # ⚙️ Configuración de Astro
-├── tailwind.config.mjs             # 🎨 Configuración de Tailwind
-├── tsconfig.json                   # 📘 Configuración de TypeScript
-├── svelte.config.js                # ⚡ Configuración de Svelte
-└── package.json                    # 📦 Dependencias y scripts
+├── lib/                       # 🛠️ Ya tienes theme.ts y utils.ts
+├── pages/                     # 📄 Ya tienes las páginas
+├── layouts/                   # 🏗️ Ya tienes Layout.astro
+└── styles/                    # 🎨 Ya tienes globals.css
 ```
 
 ## 📋 **Propósito de cada carpeta**

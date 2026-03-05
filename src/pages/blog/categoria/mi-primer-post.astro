@@ -1,0 +1,47 @@
+---
+import Layout from "../../../layouts/Layout.astro";
+import Header from "../../../components/layout/Header.astro";
+import Footer from "../../../components/layout/Footer.astro";
+---
+
+<Layout title="Post del Blog - Mi Landing">
+  <Header currentPage="blog" />
+  
+  <main class="max-w-4xl mx-auto px-4 py-16">
+    <article class="prose prose-lg">
+      <h1>📝 Este es un post desde ruta profunda:</h1>
+      <p class="text-lg text-gray-600 mb-8">
+        <strong>Ruta actual:</strong> <code>/blog/categoria/mi-primer-post</code>
+      </p>
+      
+      <div class="bg-blue-50 p-6 rounded-lg mb-8">
+        <h2>🧪 Prueba de navegación:</h2>
+        <p>Desde esta ruta profunda, todos los enlaces del Header van a rutas absolutas:</p>
+        <ul>
+          <li>✅ <strong>Inicio:</strong> <code>href="/"</code> → Funciona desde aquí</li>
+          <li>✅ <strong>Servicios:</strong> <code>href="/servicios"</code> → Funciona desde aquí</li>
+          <li>✅ <strong>Nosotros:</strong> <code>href="/nosotros"</code> → Funciona desde aquí</li>
+        </ul>
+      </div>
+
+      <div class="bg-green-50 p-6 rounded-lg">
+        <h3>🎯 ¿Cómo funciona?</h3>
+        <p>
+          Las rutas absolutas (que empiezan con <code>/</code>) siempre se resuelven desde la raíz del dominio,
+          sin importar desde qué carpeta o subcarpeta estés navegando.
+        </p>
+        <pre class="bg-gray-800 text-green-400 p-4 rounded mt-4">
+# Desde cualquier ruta:
+/                           → Inicio
+/blog/categoria/post        → Este post  
+/servicios                  → Servicios
+/nosotros                   → Nosotros
+
+# El navegador SIEMPRE va a la raíz + el path
+        </pre>
+      </div>
+    </article>
+  </main>
+  
+  <Footer />
+</Layout>

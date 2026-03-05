@@ -1,10 +1,11 @@
 <script lang="ts">
   import type { ThemeVariant } from '../../types';
-  import { buttonStyles } from '../../lib/theme';
+  import { getButtonClasses } from '../../lib/theme';
 
   interface Props {
     variant?: ThemeVariant;
     size?: 'sm' | 'md' | 'lg';
+    outline?: boolean;
     loading?: boolean;
     disabled?: boolean;
     class?: string;
@@ -16,6 +17,7 @@
   let {
     variant = 'primary',
     size = 'md',
+    outline = false,
     loading = false,
     disabled = false,
     class: className = '',
@@ -30,10 +32,9 @@
     lg: 'px-6 py-3 text-lg'
   };
 
-  // Computed classes usando $derived
+  // Computed classes usando $derived y las funciones helper del theme
   const classes = $derived([
-    'btn-base',
-    buttonStyles[variant],
+    getButtonClasses(variant, outline),
     sizeStyles[size],
     loading && 'opacity-75 cursor-not-allowed',
     disabled && 'opacity-50 cursor-not-allowed',

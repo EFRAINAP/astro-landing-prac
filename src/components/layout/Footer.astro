@@ -1,5 +1,8 @@
 ---
-// Footer component
+import { getFooterNavItems } from "../../lib/navigation";
+
+// 🧭 Obtener navegación desde configuración centralizada
+const footerNavItems = getFooterNavItems();
 ---
 
 <footer class="bg-gray-900 text-white">
@@ -43,11 +46,14 @@
       <div>
         <h3 class="font-semibold text-lg mb-4">Enlaces Rápidos</h3>
         <ul class="space-y-2">
-          <li><a href="/" class="text-gray-400 hover:text-white transition-colors">🏠 Home</a></li>
-          <li><a href="/nosotros" class="text-gray-400 hover:text-white transition-colors">👥 Nosotros</a></li>
-          <li><a href="/servicios" class="text-gray-400 hover:text-white transition-colors">⚙️ Servicios</a></li>
-          <li><a href="/proyectos" class="text-gray-400 hover:text-white transition-colors">📁 Proyectos</a></li>
-          <li><a href="/cotiza" class="text-gray-400 hover:text-white transition-colors">💰 Cotizar</a></li>
+          {footerNavItems.map(item => (
+            <li>
+              <a href={item.href} class="text-gray-400 hover:text-white transition-colors flex items-center gap-2">
+                <span class="w-4 h-4">{item.icon}</span>
+                {item.name}
+              </a>
+            </li>
+          ))}
         </ul>
       </div>
 

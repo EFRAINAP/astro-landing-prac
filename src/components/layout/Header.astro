@@ -1,17 +1,14 @@
 ---
+import { getHeaderNavItems } from "../../lib/navigation";
+
 interface Props {
   currentPage?: string;
 }
 
 const { currentPage = "" } = Astro.props;
 
-const navItems = [
-  { name: "Home", href: "/", icon: "🏠" },
-  { name: "Nosotros", href: "/nosotros", icon: "👥" }, 
-  { name: "Servicios", href: "/servicios", icon: "⚙️" },
-  { name: "Proyectos", href: "/proyectos", icon: "📁" },
-  { name: "Cotiza", href: "/cotiza", icon: "💰" }
-];
+// 🧭 Obtener navegación desde configuración centralizada
+const navItems = getHeaderNavItems();
 ---
 
 <script>
