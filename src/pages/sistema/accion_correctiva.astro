@@ -1,0 +1,266 @@
+---
+// ⚠️ Página de gestión de acciones correctivas
+import DashboardLayout from '../../layouts/DashboardLayout.astro';
+import { getAccionesCorrectivas, getDashboardStats } from '../../modules/sistema';
+
+const acciones = await getAccionesCorrectivas();
+const stats = await getDashboardStats();
+
+// Función helper para calcular estados de fechas
+function calcularEstadoFecha(fechaLimite: Date) {
+  const diffTime = fechaLimite.getTime() - new Date().getTime();
+  const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
+  
+  const isNearDeadline = (diffDays <= 7) && (diffDays > 0);
+  const isOverdue = (diffDays < 0);
+  
+  return {
+    diffDays,
+    isNearDeadline,
+    isOverdue
+  };
+}
+
+// Calcular próximas a vencer
+const proximasVencer = acciones.filter(a => {
+  if (!a.fechaLimite) return false;
+  const { isNearDeadline } = calcularEstadoFecha(a.fechaLimite);
+  return isNearDeadline;
+}).length;
+---
+
+<DashboardLayout title="Acciones Correctivas" currentPage="accion_correctiva">
+  <!-- Dashboard de acciones correctivas -->
+  <div class="grid grid-cols-1 md:grid-cols-4 gap-6 mb-8">
+    <div class="bg-white overflow-hidden shadow rounded-lg">
+      <div class="p-5">
+        <div class="flex items-center">
+          <div class="flex-shrink-0">
+            <div class="h-10 w-10 bg-red-500 rounded-lg flex items-center justify-center">
+              <svg class="h-6 w-6 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-2.5L13.732 4c-.77-.833-1.964-.833-2.732 0L4.082 15.5c-.77.833.192 2.5 1.732 2.5z" />
+              </svg>
+            </div>
+          </div>
+          <div class="ml-5 w-0 flex-1">
+            <dl>
+              <dt class="text-sm font-medium text-gray-500 truncate">Acciones Abiertas</dt>
+              <dd class="text-lg font-medium text-gray-900">{acciones.filter(a => a.estado === 'abierta').length}</dd>
+            </dl>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="bg-white overflow-hidden shadow rounded-lg">
+      <div class="p-5">
+        <div class="flex items-center">
+          <div class="flex-shrink-0">
+            <div class="h-10 w-10 bg-yellow-500 rounded-lg flex items-center justify-center">
+              <svg class="h-6 w-6 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6" />
+              </svg>
+            </div>
+          </div>
+          <div class="ml-5 w-0 flex-1">
+            <dl>
+              <dt class="text-sm font-medium text-gray-500 truncate">En Proceso</dt>
+              <dd class="text-lg font-medium text-gray-900">{acciones.filter(a => a.estado === 'enProceso').length}</dd>
+            </dl>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="bg-white overflow-hidden shadow rounded-lg">
+      <div class="p-5">
+        <div class="flex items-center">
+          <div class="flex-shrink-0">
+            <div class="h-10 w-10 bg-purple-500 rounded-lg flex items-center justify-center">
+              <svg class="h-6 w-6 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
+              </svg>
+            </div>
+          </div>
+          <div class="ml-5 w-0 flex-1">
+            <dl>
+              <dt class="text-sm font-medium text-gray-500 truncate">Próximas a Vencer</dt>
+              <dd class="text-lg font-medium text-gray-900">{proximasVencer}</dd>
+            </dl>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="bg-white overflow-hidden shadow rounded-lg">
+      <div class="p-5">
+        <div class="flex items-center">
+          <div class="flex-shrink-0">
+            <div class="h-10 w-10 bg-green-500 rounded-lg flex items-center justify-center">
+              <svg class="h-6 w-6 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
+              </svg>
+            </div>
+          </div>
+          <div class="ml-5 w-0 flex-1">
+            <dl>
+              <dt class="text-sm font-medium text-gray-500 truncate">Cerradas</dt>
+              <dd class="text-lg font-medium text-gray-900">{acciones.filter(a => a.estado === 'cerrada').length}</dd>
+            </dl>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Filtros por prioridad -->
+  <div class="mb-6">
+    <div class="sm:hidden">
+      <label for="tabs" class="sr-only">Seleccionar filtro</label>
+      <select id="tabs" name="tabs" class="block w-full pl-3 pr-10 py-2 text-base border-gray-300 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm rounded-md">
+        <option>Todas</option>
+        <option>Alta Prioridad</option>
+        <option>Media Prioridad</option>
+        <option>Baja Prioridad</option>
+      </select>
+    </div>
+    <div class="hidden sm:block">
+      <nav class="flex space-x-8" aria-label="Filtros">
+        <a href="#" class="border-indigo-500 text-indigo-600 whitespace-nowrap py-2 px-1 border-b-2 font-medium text-sm">
+          Todas ({acciones.length})
+        </a>
+        <a href="#" class="border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300 whitespace-nowrap py-2 px-1 border-b-2 font-medium text-sm">
+          Alta Prioridad ({acciones.filter(a => a.prioridad === 'alta').length})
+        </a>
+        <a href="#" class="border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300 whitespace-nowrap py-2 px-1 border-b-2 font-medium text-sm">
+          Media Prioridad ({acciones.filter(a => a.prioridad === 'media').length})
+        </a>
+        <a href="#" class="border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300 whitespace-nowrap py-2 px-1 border-b-2 font-medium text-sm">
+          Baja Prioridad ({acciones.filter(a => a.prioridad === 'baja').length})
+        </a>
+      </nav>
+    </div>
+  </div>
+
+  <!-- Lista de acciones correctivas -->
+  <div class="bg-white shadow rounded-lg overflow-hidden">
+    <div class="px-4 py-5 sm:px-6 border-b border-gray-200">
+      <div class="flex items-center justify-between">
+        <div>
+          <h3 class="text-lg leading-6 font-medium text-gray-900">Acciones Correctivas</h3>
+          <p class="mt-1 max-w-2xl text-sm text-gray-500">Gestión y seguimiento de acciones correctivas y preventivas</p>
+        </div>
+        <button class="inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md text-white bg-red-600 hover:bg-red-700 transition-colors">
+          <svg class="h-4 w-4 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4" />
+          </svg>
+          Nueva Acción
+        </button>
+      </div>
+    </div>
+
+    <div class="overflow-x-auto">
+      <table class="min-w-full divide-y divide-gray-200">
+        <thead class="bg-gray-50">
+          <tr>
+            <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+              Código
+            </th>
+            <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+              Acción Correctiva
+            </th>
+            <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+              Prioridad
+            </th>
+            <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+              Estado
+            </th>
+            <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+              Responsable
+            </th>
+            <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+              Fecha Límite
+            </th>
+            <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+              Origen
+            </th>
+            <th scope="col" class="relative px-6 py-3">
+              <span class="sr-only">Acciones</span>
+            </th>
+          </tr>
+        </thead>
+        <tbody class="bg-white divide-y divide-gray-200">
+          {acciones.map((accion) => {
+            if (!accion.fechaLimite) return null;
+            
+            const estadoFecha = calcularEstadoFecha(accion.fechaLimite);
+            
+            return (
+              <tr class="hover:bg-gray-50">
+                <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">
+                  {accion.codigo}
+                </td>
+                <td class="px-6 py-4">
+                  <div>
+                    <div class="text-sm font-medium text-gray-900">{accion.titulo}</div>
+                    <div class="text-sm text-gray-500 truncate max-w-xs">{accion.descripcion}</div>
+                  </div>
+                </td>
+                <td class="px-6 py-4 whitespace-nowrap">
+                  <span class={`inline-flex px-2 py-1 text-xs font-medium rounded-full ${
+                    accion.prioridad === 'alta' ? 'bg-red-100 text-red-800' :
+                    accion.prioridad === 'media' ? 'bg-yellow-100 text-yellow-800' :
+                    'bg-green-100 text-green-800'
+                  }`}>
+                    {accion.prioridad}
+                  </span>
+                </td>
+                <td class="px-6 py-4 whitespace-nowrap">
+                  <span class={`inline-flex px-2 py-1 text-xs font-medium rounded-full ${
+                    accion.estado === 'abierta' ? 'bg-blue-100 text-blue-800' :
+                    accion.estado === 'enProceso' ? 'bg-yellow-100 text-yellow-800' :
+                    accion.estado === 'cerrada' ? 'bg-green-100 text-green-800' :
+                    'bg-red-100 text-red-800'
+                  }`}>
+                    {accion.estado === 'enProceso' ? 'En Proceso' : 
+                     accion.estado === 'abierta' ? 'Abierta' : 
+                     accion.estado === 'cerrada' ? 'Cerrada' : 'Vencida'}
+                  </span>
+                </td>
+                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">
+                  {accion.responsable}
+                </td>
+                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+                  <div class={`${estadoFecha.isOverdue ? 'text-red-600 font-medium' : estadoFecha.isNearDeadline ? 'text-yellow-600 font-medium' : ''}`}>
+                    {accion.fechaLimite.toLocaleDateString('es-ES')}
+                    {estadoFecha.isOverdue && (
+                      <div class="text-xs text-red-500">Vencida</div>
+                    )}
+                    {estadoFecha.isNearDeadline && !estadoFecha.isOverdue && (
+                      <div class="text-xs text-yellow-500">{estadoFecha.diffDays} días</div>
+                    )}
+                  </div>
+                </td>
+                <td class="px-6 py-4 whitespace-nowrap">
+                  <span class={`inline-flex px-2 py-1 text-xs font-medium rounded-full ${
+                    accion.origen === 'auditoria' ? 'bg-purple-100 text-purple-800' :
+                    accion.origen === 'noConformidad' ? 'bg-red-100 text-red-800' :
+                    accion.origen === 'mejora' ? 'bg-blue-100 text-blue-800' :
+                    'bg-gray-100 text-gray-800'
+                  }`}>
+                    {accion.origen}
+                  </span>
+                </td>
+                <td class="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
+                  <button class="text-blue-600 hover:text-blue-900 mr-3">Ver</button>
+                  <button class="text-indigo-600 hover:text-indigo-900 mr-3">Editar</button>
+                  <button class="text-green-600 hover:text-green-900">Cerrar</button>
+                </td>
+              </tr>
+            );
+          })}
+        </tbody>
+      </table>
+    </div>
+  </div>
+</DashboardLayout>

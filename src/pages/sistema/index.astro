@@ -1,0 +1,367 @@
+---
+// 🏠 Dashboard principal del Sistema SIG
+import DashboardLayout from '../../layouts/DashboardLayout.astro';
+import { 
+  getDashboardStats, 
+  getUsuarios, 
+  getDocumentosSIG, 
+  getAccionesCorrectivas, 
+  getAuditorias 
+} from '../../modules/sistema';
+
+const stats = await getDashboardStats();
+const usuarios = await getUsuarios();
+const documentos = await getDocumentosSIG();
+const acciones = await getAccionesCorrectivas();
+const auditorias = await getAuditorias();
+
+// Calcular estadísticas adicionales
+const accionesVencidas = acciones.filter(a => {
+  const diffTime = new Date(a.fechaLimite).getTime() - new Date().getTime();
+  return diffTime < 0 && a.estado !== 'cerrada';
+}).length;
+
+const documentosProximosRevision = documentos.filter(d => {
+  if (!d.fechaRevision) return false;
+  const diffTime = new Date(d.fechaRevision).getTime() - new Date().getTime();
+  const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
+  return diffDays <= 30 && diffDays > 0;
+}).length;
+---
+
+<DashboardLayout title="Dashboard" currentPage="dashboard">
+  <!-- Métricas principales -->
+  <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
+    <!-- Total Usuarios -->
+    <div class="bg-white overflow-hidden shadow rounded-lg">
+      <div class="p-5">
+        <div class="flex items-center">
+          <div class="flex-shrink-0">
+            <div class="h-10 w-10 bg-blue-500 rounded-lg flex items-center justify-center">
+              <svg class="h-6 w-6 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197m13.5-9a2.5 2.5 0 11-5 0 2.5 2.5 0 015 0z" />
+              </svg>
+            </div>
+          </div>
+          <div class="ml-5 w-0 flex-1">
+            <dl>
+              <dt class="text-sm font-medium text-gray-500 truncate">Total Usuarios</dt>
+              <dd class="text-lg font-medium text-gray-900">{stats.totalUsuarios}</dd>
+            </dl>
+          </div>
+        </div>
+      </div>
+      <div class="bg-gray-50 px-5 py-3">
+        <div class="text-sm">
+          <a href="/sistema/usuarios" class="font-medium text-blue-700 hover:text-blue-900">Ver detalles</a>
+        </div>
+      </div>
+    </div>
+
+    <!-- Documentos Vigentes -->
+    <div class="bg-white overflow-hidden shadow rounded-lg">
+      <div class="p-5">
+        <div class="flex items-center">
+          <div class="flex-shrink-0">
+            <div class="h-10 w-10 bg-green-500 rounded-lg flex items-center justify-center">
+              <svg class="h-6 w-6 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
+              </svg>
+            </div>
+          </div>
+          <div class="ml-5 w-0 flex-1">
+            <dl>
+              <dt class="text-sm font-medium text-gray-500 truncate">Documentos Vigentes</dt>
+              <dd class="text-lg font-medium text-gray-900">{stats.documentosVigentes}</dd>
+            </dl>
+          </div>
+        </div>
+      </div>
+      <div class="bg-gray-50 px-5 py-3">
+        <div class="text-sm">
+          <a href="/sistema/documentos_sig" class="font-medium text-green-700 hover:text-green-900">Gestionar documentos</a>
+        </div>
+      </div>
+    </div>
+
+    <!-- Acciones Abiertas -->
+    <div class="bg-white overflow-hidden shadow rounded-lg">
+      <div class="p-5">
+        <div class="flex items-center">
+          <div class="flex-shrink-0">
+            <div class="h-10 w-10 bg-red-500 rounded-lg flex items-center justify-center">
+              <svg class="h-6 w-6 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-2.5L13.732 4c-.77-.833-1.964-.833-2.732 0L4.082 15.5c-.77.833.192 2.5 1.732 2.5z" />
+              </svg>
+            </div>
+          </div>
+          <div class="ml-5 w-0 flex-1">
+            <dl>
+              <dt class="text-sm font-medium text-gray-500 truncate">Acciones Abiertas</dt>
+              <dd class="text-lg font-medium text-gray-900">{stats.accionesAbiertas}</dd>
+            </dl>
+          </div>
+        </div>
+      </div>
+      <div class="bg-gray-50 px-5 py-3">
+        <div class="text-sm">
+          <a href="/sistema/accion_correctiva" class="font-medium text-red-700 hover:text-red-900">Ver acciones</a>
+        </div>
+      </div>
+    </div>
+
+    <!-- Auditorías en Curso -->
+    <div class="bg-white overflow-hidden shadow rounded-lg">
+      <div class="p-5">
+        <div class="flex items-center">
+          <div class="flex-shrink-0">
+            <div class="h-10 w-10 bg-purple-500 rounded-lg flex items-center justify-center">
+              <svg class="h-6 w-6 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v10a2 2 0 002 2h8a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-3 7h3m-3 4h3m-6-4h.01M9 16h.01" />
+              </svg>
+            </div>
+          </div>
+          <div class="ml-5 w-0 flex-1">
+            <dl>
+              <dt class="text-sm font-medium text-gray-500 truncate">Auditorías en Curso</dt>
+              <dd class="text-lg font-medium text-gray-900">{stats.auditoriasEnCurso}</dd>
+            </dl>
+          </div>
+        </div>
+      </div>
+      <div class="bg-gray-50 px-5 py-3">
+        <div class="text-sm">
+          <a href="/sistema/auditorias" class="font-medium text-purple-700 hover:text-purple-900">Ver auditorías</a>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Alertas y Notificaciones -->
+  <div class="grid grid-cols-1 lg:grid-cols-2 gap-6 mb-8">
+    <!-- Acciones que requieren atención -->
+    <div class="bg-white shadow rounded-lg">
+      <div class="px-4 py-5 sm:px-6 border-b border-gray-200">
+        <h3 class="text-lg leading-6 font-medium text-gray-900">⚠️ Requiere Atención</h3>
+        <p class="mt-1 max-w-2xl text-sm text-gray-500">Elementos que necesitan acción inmediata</p>
+      </div>
+      <div class="divide-y divide-gray-200">
+        {accionesVencidas > 0 && (
+          <div class="px-6 py-4">
+            <div class="flex items-center">
+              <div class="flex-shrink-0">
+                <div class="h-8 w-8 bg-red-500 rounded-full flex items-center justify-center">
+                  <span class="text-white font-bold">{accionesVencidas}</span>
+                </div>
+              </div>
+              <div class="ml-4">
+                <p class="text-sm font-medium text-gray-900">Acciones Correctivas Vencidas</p>
+                <p class="text-sm text-gray-500">Requieren atención inmediata</p>
+              </div>
+              <div class="ml-auto">
+                <a href="/sistema/accion_correctiva" class="text-red-600 hover:text-red-900 text-sm font-medium">
+                  Revisar
+                </a>
+              </div>
+            </div>
+          </div>
+        )}
+        
+        {documentosProximosRevision > 0 && (
+          <div class="px-6 py-4">
+            <div class="flex items-center">
+              <div class="flex-shrink-0">
+                <div class="h-8 w-8 bg-yellow-500 rounded-full flex items-center justify-center">
+                  <span class="text-white font-bold">{documentosProximosRevision}</span>
+                </div>
+              </div>
+              <div class="ml-4">
+                <p class="text-sm font-medium text-gray-900">Documentos por Revisar</p>
+                <p class="text-sm text-gray-500">Próximos a fecha de revisión</p>
+              </div>
+              <div class="ml-auto">
+                <a href="/sistema/documentos_sig" class="text-yellow-600 hover:text-yellow-900 text-sm font-medium">
+                  Revisar
+                </a>
+              </div>
+            </div>
+          </div>
+        )}
+
+        {accionesVencidas === 0 && documentosProximosRevision === 0 && (
+          <div class="px-6 py-4">
+            <div class="text-center">
+              <div class="text-green-500 text-2xl mb-2">✅</div>
+              <p class="text-sm text-gray-500">No hay elementos que requieran atención inmediata</p>
+            </div>
+          </div>
+        )}
+      </div>
+    </div>
+
+    <!-- Actividad Reciente -->
+    <div class="bg-white shadow rounded-lg">
+      <div class="px-4 py-5 sm:px-6 border-b border-gray-200">
+        <h3 class="text-lg leading-6 font-medium text-gray-900">📈 Actividad Reciente</h3>
+        <p class="mt-1 max-w-2xl text-sm text-gray-500">Últimas acciones en el sistema</p>
+      </div>
+      <div class="divide-y divide-gray-200">
+        <div class="px-6 py-4">
+          <div class="flex items-center">
+            <div class="flex-shrink-0">
+              <div class="h-8 w-8 bg-blue-500 rounded-full flex items-center justify-center">
+                <svg class="h-4 w-4 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4" />
+                </svg>
+              </div>
+            </div>
+            <div class="ml-4">
+              <p class="text-sm font-medium text-gray-900">Usuario creado</p>
+              <p class="text-sm text-gray-500">María López agregada al sistema</p>
+            </div>
+            <div class="ml-auto text-sm text-gray-400">
+              Hace 2 días
+            </div>
+          </div>
+        </div>
+
+        <div class="px-6 py-4">
+          <div class="flex items-center">
+            <div class="flex-shrink-0">
+              <div class="h-8 w-8 bg-green-500 rounded-full flex items-center justify-center">
+                <svg class="h-4 w-4 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
+                </svg>
+              </div>
+            </div>
+            <div class="ml-4">
+              <p class="text-sm font-medium text-gray-900">Documento actualizado</p>
+              <p class="text-sm text-gray-500">Procedimiento PR-001 versión 3.0</p>
+            </div>
+            <div class="ml-auto text-sm text-gray-400">
+              Hace 3 días
+            </div>
+          </div>
+        </div>
+
+        <div class="px-6 py-4">
+          <div class="flex items-center">
+            <div class="flex-shrink-0">
+              <div class="h-8 w-8 bg-purple-500 rounded-full flex items-center justify-center">
+                <svg class="h-4 w-4 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v10a2 2 0 002 2h8a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2" />
+                </svg>
+              </div>
+            </div>
+            <div class="ml-4">
+              <p class="text-sm font-medium text-gray-900">Auditoría programada</p>
+              <p class="text-sm text-gray-500">AI-001-2026 para el 15 de marzo</p>
+            </div>
+            <div class="ml-auto text-sm text-gray-400">
+              Hace 1 semana
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Gráficos y resúmenes -->
+  <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+    <!-- Distribución de Usuarios por Rol -->
+    <div class="bg-white shadow rounded-lg">
+      <div class="px-4 py-5 sm:px-6 border-b border-gray-200">
+        <h3 class="text-lg leading-6 font-medium text-gray-900">👥 Usuarios por Rol</h3>
+      </div>
+      <div class="p-6">
+        <div class="space-y-4">
+          {['admin', 'auditor', 'responsable', 'consulta'].map((rol) => {
+            const count = usuarios.filter(u => u.rol === rol).length;
+            const percentage = (count / usuarios.length) * 100;
+            const rolName = rol === 'admin' ? 'Administradores' :
+                           rol === 'auditor' ? 'Auditores' :
+                           rol === 'responsable' ? 'Responsables' : 'Consulta';
+            
+            return (
+              <div>
+                <div class="flex justify-between text-sm">
+                  <span class="font-medium text-gray-900">{rolName}</span>
+                  <span class="text-gray-500">{count}</span>
+                </div>
+                <div class="mt-1">
+                  <div class="bg-gray-200 rounded-full h-2">
+                    <div 
+                      class={`h-2 rounded-full ${
+                        rol === 'admin' ? 'bg-purple-500' :
+                        rol === 'auditor' ? 'bg-blue-500' :
+                        rol === 'responsable' ? 'bg-green-500' : 'bg-gray-500'
+                      }`}
+                      style={`width: ${percentage}%`}
+                    ></div>
+                  </div>
+                </div>
+              </div>
+            );
+          })}
+        </div>
+      </div>
+    </div>
+
+    <!-- Estado de Documentos -->
+    <div class="bg-white shadow rounded-lg">
+      <div class="px-4 py-5 sm:px-6 border-b border-gray-200">
+        <h3 class="text-lg leading-6 font-medium text-gray-900">📄 Estado Documentos</h3>
+      </div>
+      <div class="p-6">
+        <div class="space-y-4">
+          {['vigente', 'revision', 'obsoleto'].map((estado) => {
+            const count = documentos.filter(d => d.estado === estado).length;
+            const estadoName = estado === 'vigente' ? 'Vigentes' :
+                              estado === 'revision' ? 'En Revisión' : 'Obsoletos';
+            
+            return (
+              <div class="flex justify-between items-center">
+                <span class="text-sm font-medium text-gray-900">{estadoName}</span>
+                <span class={`inline-flex px-2 py-1 text-xs font-medium rounded-full ${
+                  estado === 'vigente' ? 'bg-green-100 text-green-800' :
+                  estado === 'revision' ? 'bg-yellow-100 text-yellow-800' :
+                  'bg-red-100 text-red-800'
+                }`}>
+                  {count}
+                </span>
+              </div>
+            );
+          })}
+        </div>
+      </div>
+    </div>
+
+    <!-- Próximas Fechas Importantes -->
+    <div class="bg-white shadow rounded-lg">
+      <div class="px-4 py-5 sm:px-6 border-b border-gray-200">
+        <h3 class="text-lg leading-6 font-medium text-gray-900">📅 Próximas Fechas</h3>
+      </div>
+      <div class="p-6">
+        <div class="space-y-4">
+          {auditorias.filter(a => a.estado === 'planificada').slice(0, 3).map((auditoria) => (
+            <div class="flex items-center">
+              <div class="flex-shrink-0">
+                <div class="h-8 w-8 bg-blue-500 rounded-full flex items-center justify-center">
+                  <span class="text-white text-xs font-bold">
+                    {auditoria.fechaInicio.getDate()}
+                  </span>
+                </div>
+              </div>
+              <div class="ml-3">
+                <p class="text-sm font-medium text-gray-900">{auditoria.nombre}</p>
+                <p class="text-xs text-gray-500">
+                  {auditoria.fechaInicio.toLocaleDateString('es-ES')}
+                </p>
+              </div>
+            </div>
+          ))}
+        </div>
+      </div>
+    </div>
+  </div>
+</DashboardLayout>

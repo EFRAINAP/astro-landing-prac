@@ -8,7 +8,7 @@ export const getHeroData = (): Hero => ({
   description: "Creamos experiencias web únicas con las últimas tecnologías. Desde landing pages hasta aplicaciones complejas.",
   ctaText: "Comenzar proyecto",
   ctaLink: "/cotiza",
-  backgroundImage: "/images/hero-bg.jpg"
+  backgroundImage: "/public/background-tama.png"
 });
 
 export const getFeaturedServices = (): ServiceCard[] => [
