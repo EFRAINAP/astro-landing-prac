@@ -1,0 +1,113 @@
+---
+// 🧪 Página de prueba para la arquitectura modular
+import Layout from "../layouts/Layout.astro";
+import Header from "../components/layout/Header.astro";
+import Footer from "../components/layout/Footer.astro";
+
+// 🎯 Importaciones modulares - Módulo inicio
+import HeroSection from "../modules/inicio/sections/HeroSection.astro";
+import ServicesGrid from "../modules/inicio/sections/ServicesGrid.astro";
+---
+
+<Layout 
+  title="Demo Modular - Arquitectura Escalable" 
+  description="Página de prueba para demostrar la nueva arquitectura modular con componentes organizados por características"
+>
+  <Header currentPage="demo" />
+  
+  <!-- 🎯 Hero Section Modular -->
+  <HeroSection />
+  
+  <!-- 🔧 Grid de Servicios Modular -->
+  <ServicesGrid />
+  
+  <!-- 📊 Sección de demostración de la arquitectura -->
+  <section class="py-20 bg-white">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="text-center mb-16">
+        <h2 class="text-3xl md:text-4xl font-bold text-gray-900 mb-4">
+          ✨ Arquitectura Modular Implementada
+        </h2>
+        <p class="text-lg text-gray-600 max-w-3xl mx-auto">
+          Esta página demuestra cómo funciona la nueva estructura modular. Cada sección está organizada por características y es completamente reutilizable.
+        </p>
+      </div>
+      
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+        <!-- Módulo Inicio -->
+        <div class="bg-gradient-to-br from-blue-50 to-blue-100 p-6 rounded-xl">
+          <div class="flex items-center mb-4">
+            <div class="h-10 w-10 bg-blue-500 rounded-lg flex items-center justify-center mr-3">
+              <span class="text-white font-bold">🏠</span>
+            </div>
+            <h3 class="text-xl font-semibold text-blue-900">Módulo Inicio</h3>
+          </div>
+          <ul class="text-blue-700 space-y-2">
+            <li>• HeroSection.astro</li>
+            <li>• ServicesGrid.astro</li> 
+            <li>• ServiceCard.svelte</li>
+            <li>• homeData.ts (servicios)</li>
+            <li>• animations.ts (utils)</li>
+          </ul>
+        </div>
+        
+        <!-- Módulo Nosotros -->
+        <div class="bg-gradient-to-br from-purple-50 to-purple-100 p-6 rounded-xl">
+          <div class="flex items-center mb-4">
+            <div class="h-10 w-10 bg-purple-500 rounded-lg flex items-center justify-center mr-3">
+              <span class="text-white font-bold">👥</span>
+            </div>
+            <h3 class="text-xl font-semibold text-purple-900">Módulo Nosotros</h3>
+          </div>
+          <ul class="text-purple-700 space-y-2">
+            <li>• components/ (listo)</li>
+            <li>• sections/ (listo)</li>
+            <li>• services/ (listo)</li>
+            <li>• utils/ (listo)</li>
+            <li>• types/ (listo)</li>
+          </ul>
+        </div>
+        
+        <!-- Beneficios -->
+        <div class="bg-gradient-to-br from-green-50 to-green-100 p-6 rounded-xl">
+          <div class="flex items-center mb-4">
+            <div class="h-10 w-10 bg-green-500 rounded-lg flex items-center justify-center mr-3">
+              <span class="text-white font-bold">⚡</span>
+            </div>
+            <h3 class="text-xl font-semibold text-green-900">Beneficios</h3>
+          </div>
+          <ul class="text-green-700 space-y-2">
+            <li>• Escalabilidad</li>
+            <li>• Mantenimiento</li>
+            <li>• Reutilización</li>
+            <li>• Organización</li>
+            <li>• TypeScript</li>
+          </ul>
+        </div>
+      </div>
+      
+      <!-- Ejemplo de código -->
+      <div class="mt-16 bg-gray-900 rounded-xl p-6 overflow-hidden">
+        <h4 class="text-white text-lg font-semibold mb-4">💻 Ejemplo de uso:</h4>
+        <pre class="text-green-400 text-sm overflow-x-auto"><code>// En cualquier página .astro
+// Los imports ya están declarados arriba ☝️
+
+// Datos tipados y centralizados
+const hero = await getHeroData();
+
+// Componentes reutilizables y modulares
+&lt;HeroSection /&gt;
+&lt;ServicesGrid /&gt;</code></pre>
+      </div>
+    </div>
+  </section>
+  
+  <Footer />
+</Layout>
+
+<style>
+  /* Estilos adicionales para la demo */
+  pre {
+    font-family: 'Fira Code', 'Monaco', 'Cascadia Code', monospace;
+  }
+</style>

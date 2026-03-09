@@ -1,0 +1,45 @@
+---
+// 🔧 Grid de servicios específico del módulo inicio
+import ServiceCard from '../components/ServiceCard.svelte';
+import { getFeaturedServices } from '../services/homeData';
+
+const services = await getFeaturedServices();
+---
+
+<section class="py-20 bg-gray-50">
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <!-- Header -->
+    <div class="text-center mb-16">
+      <h2 class="text-3xl md:text-4xl font-bold text-gray-900 mb-4">
+        Nuestros servicios destacados
+      </h2>
+      <p class="text-lg text-gray-600 max-w-2xl mx-auto">
+        Ofrecemos soluciones digitales completas para hacer crecer tu negocio
+      </p>
+    </div>
+    
+    <!-- Services Grid -->
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+      {services.map((service, index) => (
+        <ServiceCard 
+          service={service} 
+          index={index}
+          client:visible
+        />
+      ))}
+    </div>
+    
+    <!-- Ver todos los servicios -->
+    <div class="text-center mt-12">
+      <a 
+        href="/servicios"
+        class="inline-flex items-center px-6 py-3 border border-transparent text-base font-medium rounded-lg text-white bg-blue-600 hover:bg-blue-700 transition-colors duration-200"
+      >
+        Ver todos los servicios
+        <svg class="ml-2 -mr-1 w-5 h-5" fill="currentColor" viewBox="0 0 20 20">
+          <path fill-rule="evenodd" d="M10.293 3.293a1 1 0 011.414 0l6 6a1 1 0 010 1.414l-6 6a1 1 0 01-1.414-1.414L14.586 11H3a1 1 0 110-2h11.586l-4.293-4.293a1 1 0 010-1.414z" clip-rule="evenodd"></path>
+        </svg>
+      </a>
+    </div>
+  </div>
+</section>

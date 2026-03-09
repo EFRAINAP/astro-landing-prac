@@ -1,0 +1,87 @@
+---
+// 🎯 Sección Hero específica del módulo inicio
+import { getHeroData } from '../services/homeData';
+
+const hero = await getHeroData();
+---
+
+<section class="relative min-h-screen flex items-center justify-center overflow-hidden">
+  <!-- Background -->
+  <div class="absolute inset-0">
+    <div class="absolute inset-0 bg-gradient-to-br from-blue-900 via-blue-800 to-purple-900 opacity-90"></div>
+    {hero.backgroundImage && (
+      <img 
+        src={hero.backgroundImage} 
+        alt="Background" 
+        class="h-full w-full object-cover"
+      />
+    )}
+  </div>
+  
+  <!-- Animated particles background -->
+  <div class="absolute inset-0">
+    <div class="absolute animate-pulse bg-white rounded-full opacity-20 w-1 h-1" style="top: 20%; left: 10%; animation-delay: 0s;"></div>
+    <div class="absolute animate-pulse bg-white rounded-full opacity-20 w-1 h-1" style="top: 40%; left: 80%; animation-delay: 1s;"></div>
+    <div class="absolute animate-pulse bg-white rounded-full opacity-20 w-2 h-2" style="top: 60%; left: 20%; animation-delay: 2s;"></div>
+    <div class="absolute animate-pulse bg-white rounded-full opacity-20 w-1 h-1" style="top: 80%; left: 70%; animation-delay: 3s;"></div>
+  </div>
+  
+  <!-- Content -->
+  <div class="relative z-10 text-center text-white px-4 max-w-4xl mx-auto">
+    <!-- Subtitle -->
+    <p class="text-blue-200 text-lg font-medium mb-4 animate-fade-in opacity-0" style="animation-delay: 0.2s; animation-fill-mode: forwards;">
+      {hero.subtitle}
+    </p>
+    
+    <!-- Main title -->
+    <h1 class="text-4xl md:text-6xl lg:text-7xl font-bold mb-6 leading-tight animate-fade-in opacity-0" style="animation-delay: 0.4s; animation-fill-mode: forwards;">
+      {hero.title}
+    </h1>
+    
+    <!-- Description -->
+    <p class="text-lg md:text-xl text-blue-100 mb-8 max-w-2xl mx-auto animate-fade-in opacity-0" style="animation-delay: 0.6s; animation-fill-mode: forwards;">
+      {hero.description}
+    </p>
+    
+    <!-- CTA Buttons -->
+    <div class="flex flex-col sm:flex-row gap-4 justify-center animate-fade-in opacity-0" style="animation-delay: 0.8s; animation-fill-mode: forwards;">
+      <a 
+        href={hero.ctaLink}
+        class="inline-flex items-center justify-center px-6 py-3 text-lg font-medium rounded-lg bg-white text-blue-900 hover:bg-blue-50 transition-colors duration-200"
+      >
+        {hero.ctaText}
+      </a>
+      
+      <a 
+        href="/proyectos"
+        class="inline-flex items-center justify-center px-6 py-3 text-lg font-medium rounded-lg border-2 border-white text-white hover:bg-white hover:text-blue-900 transition-colors duration-200"
+      >
+        Ver proyectos
+      </a>
+    </div>
+  </div>
+  
+  <!-- Scroll indicator -->
+  <div class="absolute bottom-8 left-1/2 transform -translate-x-1/2 text-white animate-bounce">
+    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 14l-7 7m0 0l-7-7m7 7V3"></path>
+    </svg>
+  </div>
+</section>
+
+<style>
+  @keyframes fade-in {
+    from {
+      opacity: 0;
+      transform: translateY(30px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+  
+  .animate-fade-in {
+    animation: fade-in 0.6s ease-out;
+  }
+</style>
