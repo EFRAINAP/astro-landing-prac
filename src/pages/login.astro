@@ -1,0 +1,269 @@
+---
+import Layout from '../layouts/Layout.astro';
+import Icon from "../components/ui/Icon.svelte";
+
+const pageTitle = "Acceso al Sistema";
+const pageDescription = "Ingresa a tu panel de gestión empresarial";
+---
+<Layout title={pageTitle} description={pageDescription}>
+
+<!-- 🎨 LOGIN CHODORI - Diseño Moderno -->
+<main class="min-h-screen bg-gradient-to-br from-slate-900 via-purple-900 to-slate-900 flex items-center justify-center relative overflow-hidden">
+  
+  <!-- 🌟 Partículas de fondo animadas -->
+  <div class="absolute inset-0 opacity-20">
+    <div class="absolute top-1/4 left-1/4 w-64 h-64 bg-blue-400 rounded-full mix-blend-multiply filter blur-xl animate-blob"></div>
+    <div class="absolute top-1/3 right-1/4 w-64 h-64 bg-yellow-400 rounded-full mix-blend-multiply filter blur-xl animate-blob animation-delay-2000"></div>
+    <div class="absolute bottom-1/4 left-1/3 w-64 h-64 bg-pink-400 rounded-full mix-blend-multiply filter blur-xl animate-blob animation-delay-4000"></div>
+  </div>
+
+  <!-- 📱 Contenedor Principal -->
+  <div class="w-full max-w-md mx-4 relative z-10">
+    
+    <!-- 🎯 Logo y Header -->
+    <div class="text-center mb-8">
+      <div class="mx-auto w-20 h-20 bg-gradient-to-tr from-yellow-400 to-red-500 rounded-2xl flex items-center justify-center mb-4 shadow-2xl transform hover:scale-110 transition-transform duration-300">
+        <Icon name="cog" size="lg" client:load />
+      </div>
+      <h1 class="text-4xl font-bold bg-gradient-to-r from-white to-blue-200 bg-clip-text text-transparent mb-2">
+        Sistema SIG
+      </h1>
+      <p class="text-gray-300 text-lg font-medium">Gestión Empresarial Inteligente</p>
+    </div>
+
+    <!-- 🔐 Formulario de Login -->
+    <div class="backdrop-blur-lg bg-white/10 p-8 rounded-3xl shadow-2xl border border-white/20 hover:shadow-purple-500/25 transition-all duration-500">
+      
+      <!-- 👋 Saludo personalizado -->
+      <div class="text-center mb-6">
+        <h2 class="text-2xl font-bold text-white mb-1">¡Bienvenido de vuelta!</h2>
+        <p class="text-gray-300">Ingresa tus credenciales para continuar</p>
+      </div>
+
+      <form class="space-y-6" action="/sistema" method="get">
+        
+        <!-- 📧 Campo Email -->
+        <div class="space-y-2">
+          <label for="email" class="block text-sm font-semibold text-gray-200">
+            Correo Electrónico
+          </label>
+          <div class="relative">
+            <div class="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none">
+              <svg class="w-5 h-5 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 12a4 4 0 10-8 0 4 4 0 008 0zm0 0v1.5a2.5 2.5 0 005 0V12a9 9 0 10-9 9m4.5-1.206a8.959 8.959 0 01-4.5 1.207"></path>
+              </svg>
+            </div>
+            <input 
+              type="email" 
+              id="email" 
+              name="email" 
+              required 
+              placeholder="tu@email.com"
+              class="w-full pl-10 pr-4 py-3 bg-white/10 border border-white/20 rounded-xl text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-yellow-400 focus:border-transparent transition-all duration-300 backdrop-blur-sm"
+            >
+          </div>
+        </div>
+
+        <!-- 🔒 Campo Contraseña -->
+        <div class="space-y-2">
+          <label for="password" class="block text-sm font-semibold text-gray-200">
+            Contraseña
+          </label>
+          <div class="relative">
+            <div class="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none">
+              <svg class="w-5 h-5 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"></path>
+              </svg>
+            </div>
+            <input 
+              type="password" 
+              id="password" 
+              name="password" 
+              required 
+              placeholder="••••••••"
+              class="w-full pl-10 pr-12 py-3 bg-white/10 border border-white/20 rounded-xl text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-yellow-400 focus:border-transparent transition-all duration-300 backdrop-blur-sm"
+            >
+            <button type="button" class="absolute inset-y-0 right-0 flex items-center pr-3 text-gray-400 hover:text-white transition-colors">
+              <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"></path>
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"></path>
+              </svg>
+            </button>
+          </div>
+        </div>
+
+        <!-- 💡 Recordar y Olvido contraseña -->
+        <div class="flex items-center justify-between text-sm">
+          <label class="flex items-center text-gray-300">
+            <input type="checkbox" class="w-4 h-4 text-yellow-400 bg-white/10 border-white/20 rounded focus:ring-yellow-400 focus:ring-2 mr-2">
+            Recordarme
+          </label>
+          <a href="#" class="text-yellow-400 hover:text-yellow-300 transition-colors font-medium">
+            ¿Olvidaste tu contraseña?
+          </a>
+        </div>
+
+        <!-- 🚀 Botón de Ingreso -->
+        <button 
+          type="submit" 
+          class="w-full bg-gradient-to-r from-yellow-400 to-red-500 hover:from-yellow-500 hover:to-red-600 text-white font-bold py-3 px-6 rounded-xl shadow-lg hover:shadow-xl transform hover:scale-[1.02] transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-yellow-400 focus:ring-offset-2 focus:ring-offset-transparent"
+        >
+          <span class="flex items-center justify-center">
+            <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 16l-4-4m0 0l4-4m-4 4h14m-5 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h7a3 3 0 013 3v1"></path>
+            </svg>
+            Ingresar al Sistema
+          </span>
+        </button>
+
+        <!-- ➕ Opciones adicionales -->
+        <div class="text-center pt-4">
+          <p class="text-gray-400 text-sm mb-3">O continúa con</p>
+          <div class="flex space-x-3 justify-center">
+            <button type="button" class="flex items-center justify-center w-10 h-10 bg-white/10 border border-white/20 rounded-lg hover:bg-white/20 transition-all duration-300">
+              <svg class="w-5 h-5 text-white" viewBox="0 0 24 24">
+                <path fill="currentColor" d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z"/>
+                <path fill="currentColor" d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z"/>
+                <path fill="currentColor" d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l2.85-2.22.81-.62z"/>
+                <path fill="currentColor" d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z"/>
+              </svg>
+            </button>
+            <button type="button" class="flex items-center justify-center w-10 h-10 bg-white/10 border border-white/20 rounded-lg hover:bg-white/20 transition-all duration-300">
+              <svg class="w-5 h-5 text-white" fill="currentColor" viewBox="0 0 24 24">
+                <path d="M24 4.557c-.883.392-1.832.656-2.828.775 1.017-.609 1.798-1.574 2.165-2.724-.951.564-2.005.974-3.127 1.195-.897-.957-2.178-1.555-3.594-1.555-3.179 0-5.515 2.966-4.797 6.045-4.091-.205-7.719-2.165-10.148-5.144-1.29 2.213-.669 5.108 1.523 6.574-.806-.026-1.566-.247-2.229-.616-.054 2.281 1.581 4.415 3.949 4.89-.693.188-1.452.232-2.224.084.626 1.956 2.444 3.379 4.6 3.419-2.07 1.623-4.678 2.348-7.29 2.04 2.179 1.397 4.768 2.212 7.548 2.212 9.142 0 14.307-7.721 13.995-14.646.962-.695 1.797-1.562 2.457-2.549z"/>
+              </svg>
+            </button>
+            <button type="button" class="flex items-center justify-center w-10 h-10 bg-white/10 border border-white/20 rounded-lg hover:bg-white/20 transition-all duration-300">
+              <svg class="w-5 h-5 text-white" fill="currentColor" viewBox="0 0 24 24">
+                <path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/>
+              </svg>
+            </button>
+          </div>
+        </div>
+
+      </form>
+    </div>
+
+    <!-- 👥 Footer info -->
+    <div class="text-center mt-8 text-gray-400 text-sm">
+      <p>¿No tienes cuenta? <a href="#" class="text-yellow-400 hover:text-yellow-300 font-medium">Regístrate aquí</a></p>
+      <p class="mt-2 text-xs">© 2026 Sistema SIG. Todos los derechos reservados.</p>
+    </div>
+
+  </div>
+</main>
+</Layout>
+
+<style>
+  /* 🌟 Animaciones personalizadas */
+  @keyframes blob {
+    0% {
+      transform: translate(0px, 0px) scale(1);
+    }
+    33% {
+      transform: translate(30px, -50px) scale(1.1);
+    }
+    66% {
+      transform: translate(-20px, 20px) scale(0.9);
+    }
+    100% {
+      transform: translate(0px, 0px) scale(1);
+    }
+  }
+
+  .animate-blob {
+    animation: blob 7s infinite;
+  }
+
+  .animation-delay-2000 {
+    animation-delay: 2s;
+  }
+
+  .animation-delay-4000 {
+    animation-delay: 4s;
+  }
+
+  /* 💫 Efecto glassmorphism mejorado */
+  .backdrop-blur-lg {
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+  }
+
+  /* 🎯 Hover effects suaves */
+  input:focus {
+    box-shadow: 0 0 0 3px rgba(251, 191, 36, 0.1);
+  }
+
+  button:hover {
+    box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+  }
+</style>
+
+<script>
+  // 🎨 Interacciones del login
+  document.addEventListener('DOMContentLoaded', () => {
+    const form = document.querySelector('form');
+    const inputs = document.querySelectorAll('input');
+    const submitBtn = document.querySelector('button[type="submit"]') as HTMLButtonElement;
+    
+    // ✨ Animación de focus en inputs
+    inputs.forEach(input => {
+      input.addEventListener('focus', () => {
+        input.parentElement?.classList.add('scale-105');
+        input.parentElement?.style.setProperty('transition', 'transform 0.2s ease');
+      });
+      
+      input.addEventListener('blur', () => {
+        input.parentElement?.classList.remove('scale-105');
+      });
+    });
+    
+    // 🚀 Animación de envío
+    form?.addEventListener('submit', (e) => {
+      e.preventDefault();
+      
+      // submitBtn?.classList.add('animate-ping', 'bg-green-500');
+      // Simular carga
+      submitBtn.innerHTML = `
+        <span class="flex items-center justify-center">
+          <svg class="animate-spin -ml-1 mr-3 h-5 w-5 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+            <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
+            <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+          </svg>
+          Ingresando...
+        </span>
+      `;
+      
+      // Redirigir después de 1.5 segundos
+      setTimeout(() => {
+        window.location.href = '/sistema';
+      }, 1500);
+    });
+    
+    // 👁️ Toggle password visibility
+    const passwordToggle = document.querySelector('input[type="password"] + button');
+    const passwordInput = document.querySelector('input[type="password"]');
+    
+    passwordToggle?.addEventListener('click', () => {
+      const type = passwordInput?.getAttribute('type') === 'password' ? 'text' : 'password';
+      passwordInput?.setAttribute('type', type);
+      
+      // Cambiar icono
+      const icon = passwordToggle.querySelector('svg path');
+      if (type === 'text') {
+        passwordToggle.innerHTML = `
+          <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13.875 18.825A10.05 10.05 0 0112 19c-4.478 0-8.268-2.943-9.543-7a9.97 9.97 0 011.563-3.029m5.858.908a3 3 0 114.243 4.243M9.878 9.878l4.242 4.242M9.878 9.878L3 3m6.878 6.878L21 21"></path>
+          </svg>
+        `;
+      } else {
+        passwordToggle.innerHTML = `
+          <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"></path>
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"></path>
+          </svg>
+        `;
+      }
+    });
+  });
+</script>

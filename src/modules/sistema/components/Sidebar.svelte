@@ -52,14 +52,14 @@
 </script>
 
 <!-- Sidebar fijo para desktop -->
-<aside class="fixed top-0 left-0 z-20 h-full bg-gray-900 border-r 
+<aside class="fixed top-0 left-0 z-20 h-full bg-gray-800 border-r 
               border-gray-800 shadow-xl transition-all duration-300 
               flex flex-col {isMinimized ? 'w-16' : 'w-64'}">
   <div class="flex flex-col h-full">
     
     <!-- Logo/BrandSection -->
     <div class="flex items-center justify-between flex-shrink-0 
-                px-4 bg-gradient-to-r from-blue-900 to-blue-800 border-b 
+                px-4 bg-gradient-to-r from-yellow-900 to-red-800 border-b 
                 border-gray-700 {isMinimized ? 'h-16' : 'h-16'}">
       {#if !isMinimized}
         <div class="flex items-center">
@@ -102,7 +102,7 @@
             <Icon 
               name={item.icon} 
               size="sm" 
-              variant={isActive(item.path) ? 'primary' : 'secondary'} 
+              variant={isActive(item.path) ? 'light' : 'warning'} 
             />
           </div>
           

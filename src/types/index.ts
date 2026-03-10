@@ -18,8 +18,8 @@ export interface CardProps {
   title: string;
   description: string;
   icon?: string;
-  variant?: 'primary' | 'secondary' | 'success' | 'warning';
+  variant?: ThemeVariant;
   onclick?: () => void;
 }
 
-export type ThemeVariant = 'primary' | 'secondary' | 'success' | 'warning';
+export type ThemeVariant = 'primary' | 'secondary' | 'success' | 'warning' | 'info' | 'light';

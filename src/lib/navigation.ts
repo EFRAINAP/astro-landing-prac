@@ -61,13 +61,21 @@ export const navigation: NavItem[] = [
     showInFooter: false
   },
   {
-    name: "Sistema",
+    name: "Diseño",
     href: "/design-system",
     icon: "🎨",
     description: "Componentes del sitio",
-    showInHeader: false, // No mostrar en header principal
+    showInHeader: true,
     showInFooter: true
-  }
+  },
+  {
+    name: "Demo",
+    href: "/demo-modular",
+    icon: "🚀",
+    description: "Demostración de funcionalidades",
+    showInHeader: true,
+    showInFooter: true
+  },
 ];
 
 // 🔍 Funciones helper
