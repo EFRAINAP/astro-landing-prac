@@ -11,13 +11,16 @@ const { title, currentPage = '', description = 'Sistema de Gestión Integral' } 
 import Layout from './Layout.astro';
 import Sidebar from '../modules/sistema/components/Sidebar.svelte';
 import { getMenuItems } from '../modules/sistema/services/dataService';
+import Icon from '../components/ui/Icon.svelte';
 
 const menuItems = await getMenuItems();
 ---
 
 <Layout title={`${title} - Sistema SIG`} description={description}>
-  <div class="flex min-h-screen bg-gray-100">
-    <!-- Sidebar Fijo -->
+  <!-- ESTRUCTURA FIJA: Sidebar + Área Principal -->
+  <div class="min-h-screen bg-gray-100">
+    
+    <!-- SIDEBAR FIJO (Ocupa toda la altura) -->
     <Sidebar 
       menuItems={menuItems}
       currentPath={Astro.url.pathname}
@@ -25,12 +28,23 @@ const menuItems = await getMenuItems();
     />
     
     <!-- Área Principal (Header + Contenido + Footer) -->
-    <div class="flex-1 lg:pl-64 flex flex-col min-h-screen">
+    <div class="ml-64 flex flex-col min-h-screen transition-all duration-300" data-main-content id="main-content">
       
       <!-- HEADER FIJO -->
-      <header class="bg-white shadow-sm border-b border-gray-200 flex-shrink-0 sticky top-0 z-20">
+      <header class="bg-white shadow-sm border-b border-gray-200 flex-shrink-0 sticky top-0 z-10">
         <div class="px-6 lg:px-8">
           <div class="flex justify-between items-center py-4 h-16">
+            <div class="flex items-center space-x-4">
+              <!-- Botón único para contraer/expandir sidebar -->
+              <button id="toggleSidebar" 
+                      class="p-2 rounded-lg text-gray-400 hover:text-gray-500 hover:bg-gray-100 
+                             focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 
+                             transition-colors" 
+                      title="Contraer/Expandir sidebar">
+                <!-- Icono fijo (no cambia) -->
+                <Icon name="menu" size="sm" variant='primary' />
+              </button>
+            </div>
             <!-- Título de la página -->
             <div class="flex items-center">
               <h1 class="text-2xl font-bold text-gray-900">{title}</h1>
@@ -81,7 +95,7 @@ const menuItems = await getMenuItems();
         </div>
       </header>
       
-      <!-- CONTENIDO PRINCIPAL (EXPANDIBLE) -->
+      <!-- CONTENIDO EXPANDIBLE (flex-1) -->
       <main class="flex-1 overflow-y-auto bg-gray-50 focus:outline-none">
         <div class="py-8">
           <div class="max-w-7xl mx-auto px-6 lg:px-8">
@@ -91,7 +105,7 @@ const menuItems = await getMenuItems();
       </main>
 
       <!-- FOOTER FIJO -->
-      <footer class="bg-white border-t border-gray-200 flex-shrink-0">
+      <footer class="bg-white border-t border-gray-200 flex-shrink-0 h-16 sticky bottom-0 z-10">
         <div class="px-6 lg:px-8 py-4">
           <div class="flex items-center justify-between">
             <!-- Información del sistema -->
@@ -124,13 +138,23 @@ const menuItems = await getMenuItems();
   </div>
 </Layout>
 
-<style>
-  /* Estilos para layout con estructura fija */
-  .flex-1 {
-    flex: 1 1 0%;
-  }
+<script>
+  document.addEventListener('DOMContentLoaded', () => {
+    const toggleButton = document.getElementById('toggleSidebar');
+    toggleButton?.addEventListener('click', () => {
+      window.dispatchEvent(new CustomEvent('toggleSidebar'));
+    });
+  });
+</script>
 
-  /* Scrollbar personalizada para el contenido principal */
+<style>
+  /* CSS simple que funciona */
+  [data-main-content] {
+    margin-left: 16rem; /* 256px por defecto */
+    transition: margin-left 0.3s ease;
+  }
+  
+  /* Scrollbar */
   main::-webkit-scrollbar {
     width: 8px;
   }
@@ -142,38 +166,5 @@ const menuItems = await getMenuItems();
   main::-webkit-scrollbar-thumb {
     background: #cbd5e1;
     border-radius: 4px;
-  }
-
-  main::-webkit-scrollbar-thumb:hover {
-    background: #94a3b8;
-  }
-
-  /* Transiciones suaves */
-  header, footer {
-    transition: all 0.3s ease;
-  }
-
-  /* Mejoras de accesibilidad */
-  @media (prefers-reduced-motion: reduce) {
-    * {
-      transition-duration: 0.01ms !important;
-      animation-duration: 0.01ms !important;
-    }
-  }
-
-  /* Sombras mejoradas */
-  header {
-    box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px 0 rgba(0, 0, 0, 0.06);
-  }
-
-  footer {
-    box-shadow: 0 -1px 3px 0 rgba(0, 0, 0, 0.1), 0 -1px 2px 0 rgba(0, 0, 0, 0.06);
-  }
-
-  /* Responsive para móviles */
-  @media (max-width: 1023px) {
-    .lg\\:pl-64 {
-      padding-left: 0 !important;
-    }
   }
 </style>

@@ -14,7 +14,30 @@
 		Check,
 		ExclamationTriangle,
 		RocketLaunch,
-		type IconSource
+		ArrowLeft,
+		ArrowRight,
+		type IconSource,
+		// Iconos adicionales para pruebas rápidas
+		Star,
+		Heart,
+		Bell,
+		Envelope, // Era Mail
+		MagnifyingGlass, // Era Search
+		Plus,
+		Minus,
+		PencilSquare, // Era Edit
+		Trash,
+		Eye,
+		EyeSlash,
+		ArrowDownTray, // Era Download
+		ArrowUpTray, // Era Upload
+		Share,
+		Cog8Tooth, // Settings alternativo
+		Bars3, // Era Menu
+		XMark, // Era X
+		ChevronLeft,
+		ChevronUp,
+		ChevronDown
 	} from 'svelte-hero-icons';
 	
 	interface Props {
@@ -31,19 +54,44 @@
 		solid = false 
 	}: Props = $props();
 
-	// Mapeo de nombres de iconos a iconos de Heroicons
+	// Mapeo de nombres personalizados + iconos comunes listos para usar
 	const iconMap: Record<string, IconSource> = {
-		target: Tag, // Usando Tag como sustituto de Target
+		// Nombres personalizados
+		target: Tag,
+		cog: Cog6Tooth,
+		
+		// Iconos comunes con nombres directos (listos para probar)
 		chevronRight: ChevronRight,
+		chevronLeft: ChevronLeft,
+		chevronUp: ChevronUp,
+		chevronDown: ChevronDown,
 		home: Home,
 		users: Users,
-		cog: Cog6Tooth,
 		folder: Folder,
 		currencyDollar: CurrencyDollar,
 		documentText: DocumentText,
 		check: Check,
 		exclamationTriangle: ExclamationTriangle,
-		rocketLaunch: RocketLaunch
+		rocketLaunch: RocketLaunch,
+		arrowLeft: ArrowLeft,
+		arrowRight: ArrowRight,
+		star: Star,
+		heart: Heart,
+		bell: Bell,
+		mail: Envelope, // Nombre corregido
+		search: MagnifyingGlass, // Nombre corregido
+		plus: Plus,
+		minus: Minus,
+		edit: PencilSquare, // Nombre corregido
+		trash: Trash,
+		eye: Eye,
+		eyeSlash: EyeSlash,
+		download: ArrowDownTray, // Nombre corregido
+		upload: ArrowUpTray, // Nombre corregido
+		share: Share,
+		settings: Cog8Tooth, // Nombre corregido
+		menu: Bars3, // Nombre corregido
+		x: XMark // Nombre corregido
 	};
 
 	// Obtener el icono
