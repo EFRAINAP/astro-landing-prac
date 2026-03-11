@@ -53,16 +53,10 @@
 
   // Handler para teclas en backdrop
   const handleBackdropKeydown = (event: KeyboardEvent) => {
-    if ((event.key === 'Enter' || event.key === ' ') && closeOnBackdrop) {
+    if ((event.key === 'Escape') && closeOnBackdrop) {
       event.preventDefault();
       onClose();
     }
-  };
-
-  // Handler para teclas en modal container
-  const handleContainerKeydown = (event: KeyboardEvent) => {
-    // Solo detener propagación, no cerrar
-    event.stopPropagation();
   };
 
   // Cerrar al hacer click en backdrop
