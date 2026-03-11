@@ -9,12 +9,10 @@ export type {
 } from './types';
 
 export {
-  getUsuarios,
   getDocumentosSIG,
   getAccionesCorrectivas,
   getAuditorias,
   getMenuItems,
   getDashboardStats,
-  fetchUsuarios,
   fetchDocumentosSIG
 } from './services/dataService';

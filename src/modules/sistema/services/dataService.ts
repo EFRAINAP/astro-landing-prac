@@ -1,40 +1,6 @@
 // 📊 Servicios de datos para el sistema SIG
 import type { Usuario, DocumentoSIG, AccionCorrectiva, Auditoria, DashboardStats, MenuItem } from '../types';
 
-// Datos mock para la interfaz
-export const getUsuarios = (): Usuario[] => [
-  {
-    id: '1',
-    nombre: 'Ana García',
-    email: 'ana.garcia@empresa.com',
-    rol: 'admin',
-    estado: 'activo',
-    fechaCreacion: new Date('2024-01-15'),
-    ultimoAcceso: new Date('2026-03-09'),
-    departamento: 'Sistemas'
-  },
-  {
-    id: '2', 
-    nombre: 'Carlos Ruiz',
-    email: 'carlos.ruiz@empresa.com',
-    rol: 'auditor',
-    estado: 'activo',
-    fechaCreacion: new Date('2024-02-20'),
-    ultimoAcceso: new Date('2026-03-08'),
-    departamento: 'Calidad'
-  },
-  {
-    id: '3',
-    nombre: 'María López',
-    email: 'maria.lopez@empresa.com',
-    rol: 'responsable',
-    estado: 'activo',
-    fechaCreacion: new Date('2024-03-10'),
-    ultimoAcceso: new Date('2026-03-07'),
-    departamento: 'Operaciones'
-  }
-];
-
 export const getDocumentosSIG = (): DocumentoSIG[] => [
   {
     id: '1',
@@ -153,11 +119,6 @@ export const getDashboardStats = (): DashboardStats => ({
   accionesAbiertas: 2,
   auditoriasEnCurso: 1
 });
-
-// Funciones async para futuras APIs
-export const fetchUsuarios = async (): Promise<Usuario[]> => {
-  return getUsuarios();
-};
 
 export const fetchDocumentosSIG = async (): Promise<DocumentoSIG[]> => {
   return getDocumentosSIG();
